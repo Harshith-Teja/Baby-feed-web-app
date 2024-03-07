@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes, faInfoCircle, faEye } from '@fortawesome/free-solid-svg-icons'
 import { Link } from "react-router-dom";
+import axios from "../api/axios";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -47,7 +48,7 @@ export const Register = () => {
         setErrMsg('');
     },[user, pwd, matchPwd]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         //if btn is enabled via any JS hack
         const v1 = USER_REGEX.test(user);
@@ -56,7 +57,30 @@ export const Register = () => {
             setErrMsg('Invalid Entry');
             return;
         }
-        //connect to the backend
+        //connecting to the backend
+        try {
+            const response = await axios.post('/register',
+                JSON.stringify({user,pwd}),
+                {
+                    headers: 'Content-Type: application/json',
+                    withCredentials: true
+                }
+            );
+            console.log(JSON.stringify(response.data));
+            setUser('');
+            setPwd('');
+            setMatchPwd('');
+        }catch(err) {
+            if(!err?.response) {
+                setErrMsg('No server response');
+            } else if(err.response?.status === 409) {
+                setErrMsg('Username already exists');
+            }
+            else {
+                setErrMsg('Registration failed');
+            }
+            errRef.current.focus();
+        }
     }
 
 
