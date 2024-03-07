@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimes, faInfoCircle, faEye } from '@fortawesome/free-solid-svg-icons'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -11,6 +11,8 @@ export const Register = () => {
 
     const userRef = useRef();
     const errRef = useRef();
+
+    const navigate = useNavigate();
 
     const [user, setUser] = useState('');
     const [validName, setValidName] = useState(false);
@@ -62,7 +64,7 @@ export const Register = () => {
             const response = await axios.post('/register',
                 JSON.stringify({user,pwd}),
                 {
-                    headers: 'Content-Type: application/json',
+                    headers: {'Content-Type': 'application/json'},
                     withCredentials: true
                 }
             );
@@ -70,6 +72,7 @@ export const Register = () => {
             setUser('');
             setPwd('');
             setMatchPwd('');
+            navigate('/');
         }catch(err) {
             if(!err?.response) {
                 setErrMsg('No server response');

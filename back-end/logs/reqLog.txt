@@ -1,1 +1,1 @@
-20240307	20:11:06	2dba07b4-7b63-46cc-9093-1cce817c120d	POST	undefined	/register
+20240307	22:13:37	070fa89c-f55c-486f-acc3-d54567d48752	OPTIONS	http://127.0.0.1:5173	/register
