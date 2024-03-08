@@ -1,0 +1,1 @@
+20240309	00:12:41	c29e03e7-c1c9-40cf-a959-f6bfea5b1648	TypeError: allowedOrigins.includes is not a function

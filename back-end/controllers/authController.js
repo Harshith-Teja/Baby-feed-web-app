@@ -50,7 +50,7 @@ const handleLogin = async (req, res) => {
             );
             
             //sending aT & rT to the client(browser)
-            res.cookie('jwt', refreshToken, { httpOnly: true, samseSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000}); //httpOnly is set to true(i.e, it is not sent in js and it can't be hacked and accessed)
+            res.cookie('jwt', refreshToken, { httpOnly: true, sameSite: 'None', secure: true, maxAge: 24 * 60 * 60 * 1000}); //httpOnly is set to true(i.e, it is not sent in js and it can't be hacked and accessed)
             res.json({ accessToken });
         } else {
             res.sendStatus(401);

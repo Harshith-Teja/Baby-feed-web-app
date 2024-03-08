@@ -1,1 +1,1 @@
-20240308	23:33:56	c3d472d6-e784-4b86-acb3-687d622ec574	POST	undefined	/auth
+20240309	00:12:41	8238dfd3-383d-44d9-b9d0-b3c8fb297d67	OPTIONS	http://127.0.0.1:5173	/register
