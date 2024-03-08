@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const Login = () => {
     
     const userRef = useRef();
     const errRef = useRef();
+
+    const navigate = useNavigate();
 
     const [user, setUser] = useState('');
     const [pwd, setPwd] = useState('');
@@ -22,9 +25,29 @@ export const Login = () => {
         setErrMsg('');
     },[user, pwd]);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         //connect to back end
+        try {
+            const response = await axios.post('/auth',
+                JSON.stringify({user, pwd}),
+                {
+                    headers: {'Content-Type' : 'application/json'},
+                    withCredentials: true
+                }
+            )
+            console.log(response.data);
+            setUser('');
+            setPwd('');
+            navigate('/');
+        }catch(err) {
+            if(!err.response)
+                setErrMsg('No server response');
+            else if(err.response?.status === 409)
+                setErrMsg('Unauthorized');
+            else 
+                setErrMsg('Login failed');
+        }
     }
 
   return (
