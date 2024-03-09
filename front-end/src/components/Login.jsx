@@ -2,10 +2,9 @@ import { useEffect, useRef, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../api/axios';
 import { useAuth } from '../hooks/useAuth';
 
-const LOGIN_URL = '/auth';
 export const Login = () => {
     
     const { setAuth } = useAuth();
@@ -32,7 +31,7 @@ export const Login = () => {
         e.preventDefault();
         //connecting to the back end
         try {
-            const response = await axios.post(LOGIN_URL,
+            const response = await axios.post('/auth',
                 JSON.stringify({ user, pwd }),
                 {
                     headers: { 'Content-Type': 'application/json' },
@@ -41,7 +40,7 @@ export const Login = () => {
             );
            console.log(JSON.stringify(response?.data));
            const accessToken = response?.data?.accessToken;
-           setAuth({ user, pwd, accessToken});
+            setAuth({ user, pwd, accessToken});
             setUser('');
             setPwd('');
             navigate('/');

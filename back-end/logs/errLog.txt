@@ -1,1 +1,1 @@
-20240309	14:31:49	3ac9ae70-8e48-440f-8663-75cd872440d2	TypeError: allowedOrigins.includes is not a function
+20240309	22:37:02	278b881e-e331-44b2-843d-8378090a6c46	Error: Not allowed by CORS
