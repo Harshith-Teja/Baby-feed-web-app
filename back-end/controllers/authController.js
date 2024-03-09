@@ -18,7 +18,7 @@ const handleLogin = async (req, res) => {
     //checking if that user actually exists in the DB
     const foundUser = usersDB.users.find(person => person.username === user);
     if(!foundUser)
-        return res.sendStatus(401); //if user doesn't exist, then send 404(Unauthorized)
+        return res.sendStatus(401); //if user doesn't exist, then send 401(Unauthorized)
 
     //evaluate password
     try {

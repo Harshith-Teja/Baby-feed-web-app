@@ -3,9 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../hooks/useAuth';
 
+const LOGIN_URL = '/auth';
 export const Login = () => {
     
+    const { setAuth } = useAuth();
     const userRef = useRef();
     const errRef = useRef();
 
@@ -27,21 +30,24 @@ export const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        //connect to back end
+        //connecting to the back end
         try {
-            const response = await axios.post('/auth',
-                JSON.stringify({user, pwd}),
+            const response = await axios.post(LOGIN_URL,
+                JSON.stringify({ user, pwd }),
                 {
-                    headers: {'Content-Type' : 'application/json'},
+                    headers: { 'Content-Type': 'application/json' },
                     withCredentials: true
                 }
-            )
-            console.log(response.data);
+            );
+           console.log(JSON.stringify(response?.data));
+           const accessToken = response?.data?.accessToken;
+           setAuth({ user, pwd, accessToken});
             setUser('');
             setPwd('');
             navigate('/');
         }catch(err) {
-            if(!err.response)
+            console.log(err);
+            if(!err?.response)
                 setErrMsg('No server response');
             else if(err.response?.status === 400)
                 setErrMsg('Missing username or password');
