@@ -10,7 +10,7 @@ export const Layout = () => {
     <div className='grow flex flex-col'>
         <Header/>
         <NavBar/>
-        <main className='grow overflow-auto'>    
+        <main className='grow overflow-auto bg-gradient-to-b from-slate-200 to-stone-200'>    
             <Outlet/>
         </main>
         <Footer/>

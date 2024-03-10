@@ -60,7 +60,7 @@ export const Login = () => {
     }
 
   return (
-    <section className='bg-sky-400 w-full h-dvh flex justify-center items-center font-sans'>
+    <section className='bg-gradient-to-r from-indigo-400 to-cyan-400 w-full h-dvh flex justify-center items-center font-sans'>
         <div className='w-96 bg-slate-300 p-8 rounded-lg relative text-lg'>
             <p ref={errRef} aria-live="assertive" className={errMsg ? 'bg-slate-500 text-red-400 p-2 rounded-lg text-xl mb-2' : 'hidden'}>{errMsg}</p>
             <h1 className='text-4xl mb-8 text-center'>Login Form</h1>
