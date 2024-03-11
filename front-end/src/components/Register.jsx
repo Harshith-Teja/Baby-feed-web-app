@@ -190,7 +190,7 @@ export const Register = () => {
             <p className="mt-3">
                 Already registered? <br />
                 <span className="underline">
-                    <Link to='/login'>Sign in</Link>
+                    <Link to='/login'>Sign up</Link>
                 </span>
             </p>
         </div>
