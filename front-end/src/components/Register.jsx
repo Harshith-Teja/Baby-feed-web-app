@@ -184,13 +184,13 @@ export const Register = () => {
                 </p>
 
                 <button className="w-full bg-blue-500 text-slate-200 p-2 rounded-xl mt-4 hover:scale-105 hover:bg-indigo-500 transition-all ease-in duration-300">
-                    Sign In
+                    Sign up
                 </button>
             </form>
             <p className="mt-3">
                 Already registered? <br />
                 <span className="underline">
-                    <Link to='/login'>Sign up</Link>
+                    <Link to='/login'>Sign in</Link>
                 </span>
             </p>
         </div>
