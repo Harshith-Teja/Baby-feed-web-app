@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Recommendations = () => {
+export const Recommendations = ({name, age, weight, timesFeeded, temp}) => {
   return (
     <div className="w-full h-dvh">
         <section className='flex flex-col items-center mt-8 text-xl'>

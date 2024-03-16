@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const Results = () => {
+export const Results = ({name, age, weight, timesFeeded, temp}) => {
   return (
     <div className='w-full h-dvh'>
        <table className='mt-8 mx-auto '>
