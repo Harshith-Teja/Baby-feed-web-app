@@ -14,15 +14,16 @@ import { useState } from "react"
 function App() {
 
   const [name, setName] = useState('');
-  const [age, setAge] = useState(0);
-  const [weight, setWeight] = useState(0);
-  const [timesFeeded, setTimesFeeded] = useState(0);
-  const [temp, setTemp] = useState(0);
+  const [age, setAge] = useState('');
+  const [weight, setWeight] = useState('');
+  const [timesFeeded, setTimesFeeded] = useState('');
+  const [temp, setTemp] = useState('');
+  const [reqType, setReqType] = useState('');
 
   return (
     <div className="w-full h-dvh flex">
         <Routes>
-            <Route path="/" element={<Layout/>}>
+            <Route path="/" element={<Layout reqType={reqType} setReqType={setReqType}/>}>
               
               <Route index element={<Home/>}/>
               <Route path="/questionnaire" element={<Questionnaire
@@ -36,6 +37,7 @@ function App() {
                   setWeight={setWeight}
                   setTimesFeeded={setTimesFeeded}
                   setTemp={setTemp}
+                  setReqType={setReqType}
               />}/>
               <Route path="/results" element={<Results
                   name={name}

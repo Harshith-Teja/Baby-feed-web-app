@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-export const NavBar = () => {
-  const [reqType, setReqType] = useState('');
+export const NavBar = ({ reqType, setReqType }) => {
   
   return (
     <nav className="bg-gradient-to-r from-slate-900 to-slate-700 shadow-2xl shadow-blue-500/50 text-white p-3 sm:text-xl">
