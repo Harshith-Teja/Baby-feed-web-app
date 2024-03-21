@@ -45,6 +45,7 @@ function App() {
                   weight={weight}
                   timesFeeded={timesFeeded}
                   temp={temp}
+                  setReqType={setReqType}
               />}/>
               <Route path="/recommendations" element={<Recommendations
                   name={name}

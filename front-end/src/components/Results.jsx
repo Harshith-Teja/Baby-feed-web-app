@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
-export const Results = ({name, age, weight, timesFeeded, temp}) => {
+export const Results = ({name, age, weight, timesFeeded, temp, setReqType}) => {
   const [fromValMilk, setFromValMilk] = useState(0);
   const [fromValCereal, setFromValCereal] = useState(0);
   const [fromValFruits, setFromValFruits] = useState(0);
@@ -19,12 +20,18 @@ export const Results = ({name, age, weight, timesFeeded, temp}) => {
   const [frequencyVegetables, setFrequencyVegetables] = useState(0);
   const [frequencyProteins, setFrequencyProteins] = useState(0);
 
-  const val = parseInt(age);
+  const ageVal = parseInt(age);
   const wt = parseInt(weight);
+
+  const navigate = useNavigate();
+  const handleSubmit = () => {
+      setReqType('Recommendations');
+      navigate('/recommendations');
+  }
 
   const setVals = () => {
       switch(true) {
-        case (val <= 2) : 
+        case (ageVal <= 2) : 
               setFromValMilk('60ml');
               setToValMilk('120ml');
               setFrequencyMilk('Once every 3 hours');
@@ -45,7 +52,7 @@ export const Results = ({name, age, weight, timesFeeded, temp}) => {
               setToValProteins('NA');
               setFrequencyProteins('NA');
               break;
-        case (val > 2 && val <= 4):
+        case (ageVal > 2 && ageVal <= 4):
               setFromValMilk('120ml');
               setToValMilk('180ml');
               setFrequencyMilk('6 to 8 times');
@@ -66,7 +73,7 @@ export const Results = ({name, age, weight, timesFeeded, temp}) => {
               setToValProteins('NA');
               setFrequencyProteins('NA');
               break;
-        case (val > 4 && val <= 6 && wt <= 5):
+        case (ageVal > 4 && ageVal <= 6 && wt <= 5):
               setFromValMilk('120ml');
               setToValMilk('240ml');
               setFrequencyMilk('5 to 6 times');
@@ -87,7 +94,7 @@ export const Results = ({name, age, weight, timesFeeded, temp}) => {
               setToValProteins('NA');
               setFrequencyProteins('NA');
               break;
-        case (val > 4 && val <= 6 && wt > 5):
+        case (ageVal > 4 && ageVal <= 6 && wt > 5):
               setFromValMilk('4 feedings per day');
               setToValMilk('6 feedings per day');
               setFrequencyMilk('-');
@@ -108,7 +115,7 @@ export const Results = ({name, age, weight, timesFeeded, temp}) => {
               setToValProteins('2tbs(plain, strained)');
               setFrequencyProteins('2 times');
               break;
-        case (val == 7):
+        case (ageVal == 7):
               setFromValMilk('3 feedings per day');
               setToValMilk('5 feedings per day');
               setFrequencyMilk('-');
@@ -129,7 +136,7 @@ export const Results = ({name, age, weight, timesFeeded, temp}) => {
               setToValProteins('2tbs(strained)');
               setFrequencyProteins('2 times');
               break;
-        case (val == 8):
+        case (ageVal == 8):
               setFromValMilk('3 feedings per day');
               setToValMilk('5 feedings per day');
               setFrequencyMilk('-');
@@ -150,7 +157,7 @@ export const Results = ({name, age, weight, timesFeeded, temp}) => {
               setToValProteins('NA');
               setFrequencyProteins('NA');
               break;
-        case (val == 9):
+        case (ageVal == 9):
               setFromValMilk('3 feedings per day');
               setToValMilk('5 feedings per day');
               setFrequencyMilk('-');
@@ -171,7 +178,7 @@ export const Results = ({name, age, weight, timesFeeded, temp}) => {
               setToValProteins('3tbs(tender, chopped)');
               setFrequencyProteins('2 times');
               break;
-        case (val > 9 && val <= 12):
+        case (ageVal > 9 && ageVal <= 12):
               setFromValMilk('3 feedings per day');
               setToValMilk('4 feedings per day');
               setFrequencyMilk('-');
@@ -220,15 +227,15 @@ export const Results = ({name, age, weight, timesFeeded, temp}) => {
   }, [age, weight]);
 
   return (
-    <div className='w-full h-dvh'>
-       <table className='mt-8 mx-auto '>
-            <caption>{ age > 12 ? <h1 className='text-lg mb-4 text-red-500'> Babies above 1 year are not considered as infants</h1> : <></>}</caption>
+    <div className='w-full h-dvh text-xl text-center'>
+       <table className='mt-8 mx-auto bg-slate-300'>
+            <caption>{ age > 12 ? <h1 className='mb-4 text-red-500'> Babies above 1 year are not considered as infants</h1> : <h1 className='font-bold mb-4'>{`Results for baby ${name}`}</h1>}</caption>
             <tbody>
             <tr>
-                <th className='border-2 border-slate-950 p-2'>Food Item</th>
-                <th className='border-2 border-slate-950 p-2'>From(quantity)</th>
-                <th className='border-2 border-slate-950 p-2'>To(quantity)</th>
-                <th className='border-2 border-slate-950 p-2'>Frequency(per day)</th>
+                <th className='border-2 border-slate-950 p-4 bg-slate-400'>Food Item</th>
+                <th className='border-2 border-slate-950 p-2 bg-slate-400'>From(quantity)</th>
+                <th className='border-2 border-slate-950 p-2 bg-slate-400'>To(quantity)</th>
+                <th className='border-2 border-slate-950 p-2 bg-slate-400'>Frequency(per day)</th>
             </tr>
             <tr>
                 <td className='border-2 border-slate-950 p-2'>Milk</td>
@@ -261,7 +268,8 @@ export const Results = ({name, age, weight, timesFeeded, temp}) => {
                 <td className='border-2 border-slate-950 p-2'>{frequencyProteins}</td>
             </tr>
             </tbody>
-       </table> 
+       </table>
+       <button onClick={() => handleSubmit()} className='w-full sm:w-1/6 rounded-md p-1.5 mt-12 border-2 bg-sky-600 text-slate-100 border-gray-950 text-lg'>Move to Recommendations</button>
     </div>
   )
 }
