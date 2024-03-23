@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useRef, useState } from 'react'
+import axios from '../api/axios'
 
 export const Predict = () => {
   
-  const symptoms = ['itching','skin_rash','nodal_skin_eruptions','continuous_sneezing','shivering','chills','joint_pain',
+  const symptoms = ['', 'itching','skin_rash','nodal_skin_eruptions','continuous_sneezing','shivering','chills','joint_pain',
   'stomach_pain','acidity','ulcers_on_tongue','muscle_wasting','vomiting','burning_micturition','spotting_ urination','fatigue',
   'weight_gain','anxiety','cold_hands_and_feets','mood_swings','weight_loss','restlessness','lethargy','patches_in_throat',
   'irregular_sugar_level','cough','high_fever','sunken_eyes','breathlessness','sweating','dehydration','indigestion',
@@ -21,64 +22,78 @@ export const Predict = () => {
   'fluid_overload','blood_in_sputum','prominent_veins_on_calf','palpitations','painful_walking','pus_filled_pimples','blackheads','scurring','skin_peeling',
   'silver_like_dusting','small_dents_in_nails','inflammatory_nails','blister','red_sore_around_nose','yellow_crust_ooze'];
 
+  const [symptom1, setSymptom1] = useState('');
+  const [symptom2, setSymptom2] = useState('');
+  const [symptom3, setSymptom3] = useState('');
+  const [symptom4, setSymptom4] = useState('');
+  const [symptom5, setSymptom5] = useState('');
+  const [result, setResult] = useState('');
+  const resRef = useRef();
+
+  const handleOpts = (symptom, index) => {
+    return <option key={index}>{symptom}</option>
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    //sending data to the backend
+    if(!symptom1 && !symptom2 && !symptom3 && !symptom4 && !symptom5) {
+      setResult('Please select the symptoms');
+      resRef.current.focus();
+      return;
+    }
+
+    try {
+      const response = await axios.post('/predict', 
+        JSON.stringify({symptom1, symptom2, symptom3, symptom4, symptom5}),
+        {
+          headers: { 'Content-Type' : 'application/json'},
+          withCredentials: true
+        });
+        console.log(response.data);
+        setResult(response.data);
+        setSymptom1('');
+        setSymptom2('');
+        setSymptom3('');
+        setSymptom4('');
+        setSymptom5('');
+    }catch(err) {
+        console.log(err);
+    }
+  }
 
   return (
-    <form className='w-full h-dvh flex flex-col sm:items-center sm:text-xl p-8'>
+    <form className='w-full h-dvh flex flex-col sm:items-center sm:text-xl p-8' onSubmit={handleSubmit}>
         <h1>Select the symptoms</h1>
         
         <label htmlFor='symptom1' className='mt-2'>Symptom 1</label>
-        <select id='symptom1' className='w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950'>
-          {symptoms.map((symptom, index) => {
-            <option key={index} value={symptom} className='w-full sm:w-1/2 rounded-md p-1.5'>{symptom}</option>
-          })}
+        <select id='symptom1' value={symptom1} onChange={(e) => setSymptom1(e.target.value)} className='w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950 text-center'>
+          {symptoms.map(handleOpts)}
         </select>
 
         <label htmlFor='symptom2' className='mt-2'>Symptom 2</label>
-        <select id='symptom2' className='w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950'>
-          {symptoms.map((symptom, index) => {
-            <option key={index} value={symptom} className='w-full sm:w-1/2 rounded-md p-1.5'>{symptom}</option>
-          })}
+        <select id='symptom2' value={symptom2} onChange={(e) => setSymptom2(e.target.value)} className='w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950 text-center'>
+          {symptoms.map(handleOpts)}
         </select>
 
         <label htmlFor='symptom3' className='mt-2'>Symptom 3</label>
-        <select id='symptom3' className='w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950'>
-          {symptoms.map((symptom, index) => {
-            <option key={index} value={symptom} className='w-full sm:w-1/2 rounded-md p-1.5'>{symptom}</option>
-          })}
+        <select id='symptom3' value={symptom3} onChange={(e) => setSymptom3(e.target.value)}  className='w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950 text-center'>
+          {symptoms.map(handleOpts)}
         </select>
         <label htmlFor='symptom4' className='mt-2'>Symptom 4</label>
-        <select id='symptom4' className='w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950'>
-          {symptoms.map((symptom, index) => {
-            <option key={index} value={symptom} className='w-full sm:w-1/2 rounded-md p-1.5'>{symptom}</option>
-          })}
+        <select id='symptom4' value={symptom4} onChange={(e) => setSymptom4(e.target.value)}  className='w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950 text-center'>
+          {symptoms.map(handleOpts)}
         </select>
 
         <label htmlFor='symptom5' className='mt-2'>Symptom 5</label>
-        <select id='symptom5' className='w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950'>
-          {symptoms.map((symptom, index) => {
-            <option key={index} value={symptom} className='w-full sm:w-1/2 rounded-md p-1.5'>{symptom}</option>
-          })}
+        <select id='symptom5' value={symptom5} onChange={(e) => setSymptom5(e.target.value)}  className='w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950 text-center'>
+          {symptoms.map(handleOpts)}
         </select>
-        {/* <label htmlFor="q1" className='mt-2'>Symptom 1</label>
-        <input 
-            className="w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950"
-            type="text" 
-            id="q1"
-        />
-        
-        <label htmlFor="q2" className='mt-2'>Symptom 2</label>
-        <input 
-            className="w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950"
-            type="text" 
-            id="q2"
-        />
 
-        <label htmlFor="q3" className='mt-2'>Symptom 3</label>
-        <input 
-            className="w-full sm:w-1/2 rounded-md p-1.5 my-2 border-2 border-gray-950"
-            type="text" 
-            id="q3"
-        /> */}
+        <button type='submit' className='w-full sm:w-1/6 rounded-md p-1.5 my-6 border-2 bg-sky-600 text-slate-100 border-gray-950 text-center'>Submit</button>
+        
+        {result && <h1 ref={resRef} className='mt-4 text-red-500'>{result}</h1>}
+        
     </form>
   )
 }
