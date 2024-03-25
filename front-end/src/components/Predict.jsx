@@ -27,7 +27,7 @@ export const Predict = () => {
   const [symptom3, setSymptom3] = useState('');
   const [symptom4, setSymptom4] = useState('');
   const [symptom5, setSymptom5] = useState('');
-  const [result, setResult] = useState('');
+  const [result, setResult] = useState(null);
   const resRef = useRef();
 
   const handleOpts = (symptom, index) => {
@@ -50,13 +50,8 @@ export const Predict = () => {
           headers: { 'Content-Type' : 'application/json'},
           withCredentials: true
         });
-        console.log(response.data);
+       // console.log(response.data);
         setResult(response.data);
-        setSymptom1('');
-        setSymptom2('');
-        setSymptom3('');
-        setSymptom4('');
-        setSymptom5('');
     }catch(err) {
         console.log(err);
     }
@@ -90,9 +85,10 @@ export const Predict = () => {
           {symptoms.map(handleOpts)}
         </select>
 
-        <button type='submit' className='w-full sm:w-1/6 rounded-md p-1.5 my-6 border-2 bg-sky-600 text-slate-100 border-gray-950 text-center'>Submit</button>
+        <button type='submit' className='w-full sm:w-1/6 rounded-md p-1.5 mt-6 border-2 bg-sky-600 text-slate-100 border-gray-950 text-center'>Submit</button>
         
-        {result && <h1 ref={resRef} className='mt-4 text-red-500'>{result}</h1>}
+        {result && <h1 className='mt-2 font-bold text-2xl'>Results : </h1>}
+        {result && <h1 ref={resRef} className='mt-2 font-medium text-red-500'>{result.predictionVal}</h1>}
         
     </form>
   )

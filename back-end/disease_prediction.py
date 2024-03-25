@@ -79,8 +79,8 @@ def NaiveBayes(*symptoms):
     gnb=gnb.fit(X,np.ravel(y))
     from sklearn.metrics import accuracy_score
     y_pred = gnb.predict(X_test)
-    print(accuracy_score(y_test, y_pred))
-    print(accuracy_score(y_test, y_pred, normalize=False))
+    #print(accuracy_score(y_test, y_pred))
+    #print(accuracy_score(y_test, y_pred, normalize=False))
 
     #psymptoms = [Symptom1.get(),Symptom2.get(),Symptom3.get(),Symptom4.get(),Symptom5.get()]
     psymptoms = list(symptoms)
@@ -100,7 +100,6 @@ def NaiveBayes(*symptoms):
         if(disease[predicted] == disease[a]):
             h='yes'
             return disease[a]
-            break
 
     # if (h=='yes'):
     #     t3.delete("1.0", END)
@@ -110,13 +109,14 @@ def NaiveBayes(*symptoms):
     #     t3.insert(END, "No Disease")
 
 
+
 #root.mainloop()
 features = [sys.argv[1], sys.argv[2],sys.argv[3], sys.argv[4],sys.argv[5]]
 disease = NaiveBayes(*features)
 
 print(disease)
+# with open('disease.txt', 'w') as file:
+#     file.write(disease)
 
-with open('disease.txt', 'w') as file:
-    file.write(disease)
 # node_process = subprocess.Popen(['node', 'script.js'], stdin=subprocess.PIPE)
 # node_process.communicate(input=disease.encode())
