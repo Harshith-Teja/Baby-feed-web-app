@@ -22,6 +22,8 @@ export const Results = ({name, age, weight, timesFeeded, temp, setReqType}) => {
 
   const ageVal = parseInt(age);
   const wt = parseInt(weight);
+  const timesFeededVal = parseInt(timesFeeded);
+  const tempVal = parseInt(temp);
 
   const navigate = useNavigate();
   const handleSubmit = () => {
@@ -222,14 +224,21 @@ export const Results = ({name, age, weight, timesFeeded, temp, setReqType}) => {
       }
   }
   
+  const [error, setError] = useState('')
+
   useEffect(() => {
      setVals();
+     
+     if(isNaN(ageVal) || isNaN(wt) || isNaN(timesFeededVal) || isNaN(tempVal))
+         setError('Invalid data')
+        
   }, [age, weight]);
 
   return (
     <div className='w-full h-dvh text-xl text-center'>
        <table className='mt-8 mx-auto bg-slate-300'>
-            <caption>{ age > 12 ? <h1 className='mb-4 text-red-500'> Babies above 1 year are not considered as infants</h1> : <h1 className='font-bold mb-4'>{`Results for baby ${name}`}</h1>}</caption>
+            <caption>{ ageVal > 12 ? <h1 className='mb-4 text-red-500'> Babies above 1 year are not considered as infants </h1> : <h1 className='font-bold mb-4'>{`Results for baby ${name}`}</h1>}</caption>
+            <caption><h1 className='mb-4 text-red-500'>{error}</h1></caption>
             <tbody>
             <tr>
                 <th className='border-2 border-slate-950 p-4 bg-slate-400'>Food Item</th>
