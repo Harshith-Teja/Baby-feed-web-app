@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const NavBar = ({ reqType, setReqType }) => {
-  
   return (
     <nav className="bg-gradient-to-r from-slate-900 to-slate-700 shadow-2xl shadow-blue-500/50 text-white p-3 sm:text-xl">
       <ul className="grid grid-rows-2 grid-flow-col gap-2 sm:flex justify-around">
@@ -45,7 +44,7 @@ export const NavBar = ({ reqType, setReqType }) => {
           </li>
         </Link>
 
-        <Link to="/predict">
+        {/* <Link to="/predict">
           <li
             className={
               reqType == "Predict Disease"
@@ -56,7 +55,7 @@ export const NavBar = ({ reqType, setReqType }) => {
           >
             Predict Disease
           </li>
-        </Link>
+        </Link> */}
 
         <Link to="/appointment">
           <li
