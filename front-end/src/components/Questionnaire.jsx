@@ -5,12 +5,10 @@ export const Questionnaire = ({
   age,
   weight,
   timesFeeded,
-  temp,
   setName,
   setAge,
   setWeight,
   setTimesFeeded,
-  setTemp,
   setReqType,
 }) => {
   const navigate = useNavigate();

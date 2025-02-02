@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export const Recommendations = ({ name, age, weight, timesFeeded, temp }) => {
+export const Recommendations = ({ name, age, weight, timesFeeded }) => {
   const [developments, setDevelopments] = useState("");
 
   const ageVal = parseInt(age);
@@ -37,7 +37,7 @@ export const Recommendations = ({ name, age, weight, timesFeeded, temp }) => {
     <div className="w-full h-dvh">
       <section className="flex flex-col items-center mt-8 text-xl">
         <h1 className="font-bold">{`Recommendations for baby ${name}`}</h1>
-        {name && age && weight && timesFeeded && temp ? (
+        {name && age && weight && timesFeeded ? (
           <ul className="list-disc mt-4 w-5/6 sm:w-1/2 border-2 border-black rounded-2xl bg-slate-300 px-8 py-4">
             <li className="my-2">{developments}</li>
             <li className="my-2">
